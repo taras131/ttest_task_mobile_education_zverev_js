@@ -8,6 +8,9 @@ let draggableElement = null
 const finishSectionContent = document.querySelector('.finish-section-content')
 const startSection = document.querySelector('.start-section')
 const title = document.querySelector('.title')
+const wrapperSection = document.querySelector('.wrapper')
+const finishSection = document.querySelector('.finish-section')
+let enterElement = null
 
 function getCountElementFinalSection() {
     let count = 0
@@ -24,6 +27,9 @@ function dragStart(e) {
 }
 
 function dragEnd(e) {
+    if(!enterElement){
+        startSection.append(draggableElement)
+    }
     e.target.classList.remove('hide')
 }
 
@@ -38,6 +44,13 @@ function drop(e, div) {
 function dragOver(e) {
     e.preventDefault()
 }
+wrapperSection.addEventListener('dragenter', (e)=>{
+    enterElement = null
+})
+finishSection.addEventListener('dragenter', (e)=>{
+    e.stopPropagation()
+    enterElement = 'finishSection'
+})
 
 startElementList.forEach(item => {
     let newElement = document.createElement('div');
